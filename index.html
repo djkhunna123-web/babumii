@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Commission Shop ✿</title>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════ */
+/*  ROOT & THEME                              */
+/* ═══════════════════════════════════════════ */
+:root {
+  --bg: #FFF5F5;
+  --bg-card: rgba(255,255,255,0.75);
+  --bg-card-solid: #FFFFFF;
+  --bg-sidebar: rgba(255,255,255,0.55);
+  --bg-modal: rgba(255,255,255,0.95);
+  --bg-input: #FFF0F0;
+  --text: #5C3D3D;
+  --text-sub: #A07070;
+  --text-muted: #CBA8A8;
+  --accent: #E8A0A0;
+  --accent-dark: #D48080;
+  --accent-gradient: linear-gradient(135deg, #E8A0A0, #D4A0C0);
+  --pink: #F5C6C6;
+  --pink-light: #FFF0EE;
+  --pink-border: rgba(232,160,160,0.25);
+  --border: rgba(200,160,160,0.15);
+  --shadow-sm: 0 2px 12px rgba(200,140,140,0.06);
+  --shadow-md: 0 8px 30px rgba(200,140,140,0.08);
+  --shadow-lg: 0 16px 48px rgba(200,140,140,0.12);
+  --radius: 20px;
+  --radius-sm: 12px;
+  --radius-xs: 8px;
+  --sidebar-w: 240px;
+  --nav-h: 64px;
+  --success: #6BC9A0;
+  --warning: #E8C870;
+  --danger: #E88080;
+  --transition: 0.4s cubic-bezier(0.22,1,0.36,1);
+}
+
+[data-mode="dark"] {
+  --bg: #1A1215;
+  --bg-card: rgba(40,28,32,0.8);
+  --bg-card-solid: #2A1E22;
+  --bg-sidebar: rgba(30,20,24,0.85);
+  --bg-modal: rgba(35,25,28,0.96);
+  --bg-input: rgba(50,35,40,0.6);
+  --text: #F0E0E0;
+  --text-sub: #C0A0A0;
+  --text-muted: #806868;
+  --accent: #E8A0A0;
+  --accent-dark: #C08080;
+  --pink: #3A2528;
+  --pink-light: #2A1A1E;
+  --pink-border: rgba(232,160,160,0.15);
+  --border: rgba(200,160,160,0.08);
+  --shadow-sm: 0 2px 12px rgba(0,0,0,0.15);
+  --shadow-md: 0 8px 30px rgba(0,0,0,0.2);
+  --shadow-lg: 0 16px 48px rgba(0,0,0,0.3);
+}
+
+/* ═══════════════════════════════════════════ */
+/*  RESET                                     */
+/* ═══════════════════════════════════════════ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent}
+body{font-family:'Kanit','Prompt',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;min-height:100dvh;overflow-x:hidden;transition:background 0.5s,color 0.5s}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-thumb{background:var(--accent);border-radius:5px;opacity:0.3}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+
+/* ═══════════════════════════════════════════ */
+/*  ANIMATIONS                                */
+/* ═══════════════════════════════════════════ */
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeScale{from{opacity:0;transform:scale(0.9)}to{opacity:1;transform:scale(1)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes floatSlow{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-12px) rotate(3deg)}}
+@keyframes pulse{0%,100%{opacity:0.4;transform:scale(1)}50%{opacity:1;transform:scale(1.05)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes sparkle{0%,100%{opacity:0.2;transform:scale(0.8)}50%{opacity:1;transform:scale(1.2)}}
+@keyframes slideUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+@keyframes modalSlide{from{opacity:0;transform:translateY(30px) scale(0.95)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes toastIn{from{transform:translateX(110%);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes toastOut{to{transform:translateX(110%);opacity:0}}
+@keyframes confettiFall{0%{transform:translateY(-100vh) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
+@keyframes breathe{0%,100%{opacity:0.6}50%{opacity:1}}
+@keyframes gradShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+.anim-up{animation:fadeUp 0.6s var(--transition) both}
+.d1{animation-delay:.05s}.d2{animation-delay:.1s}.d3{animation-delay:.15s}.d4{animation-delay:.2s}.d5{animation-delay:.25s}
+
+/* Sparkle dots */
+.sparkle{position:absolute;width:6px;height:6px;background:var(--accent);border-radius:50%;opacity:0.3;animation:sparkle 3s ease-in-out infinite}
+
+/* ═══════════════════════════════════════════ */
+/*  LANDING PAGE                              */
+/* ═══════════════════════════════════════════ */
+#landing{position:fixed;inset:0;z-index:1000;background:var(--bg);display:flex;align-items:center;justify-content:center;transition:opacity 0.6s ease,visibility 0.6s ease}
+#landing.hidden{opacity:0;visibility:hidden;pointer-events:none}
+
+.landing-card{background:var(--bg-card-solid);border-radius:var(--radius);padding:48px 40px;text-align:center;box-shadow:var(--shadow-lg);animation:fadeScale 0.7s ease both;max-width:340px;width:90%}
+.landing-avatar{width:100px;height:100px;border-radius:50%;border:3px solid var(--pink);margin:0 auto 16px;overflow:hidden}
+.landing-avatar img{width:100%;height:100%;object-fit:cover}
+.landing-greeting{font-size:0.8rem;color:var(--accent);letter-spacing:2px;margin-bottom:4px}
+.landing-name{font-size:1.8rem;font-weight:700;color:var(--text);margin-bottom:2px}
+.landing-name span{color:var(--accent);font-style:italic}
+.landing-sub{font-size:0.82rem;color:var(--text-muted);margin-bottom:24px}
+.landing-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 36px;background:var(--accent-gradient);color:white;border:none;border-radius:50px;font-family:inherit;font-size:0.9rem;font-weight:500;cursor:pointer;transition:all 0.35s ease;box-shadow:0 4px 20px rgba(232,160,160,0.3)}
+.landing-btn:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(232,160,160,0.4)}
+
+/* Landing sparkles */
+.landing-sparkles{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.landing-sparkles .sparkle{animation-duration:4s}
+
+/* ═══════════════════════════════════════════ */
+/*  LAYOUT                                    */
+/* ═══════════════════════════════════════════ */
+#app{display:flex;min-height:100vh;min-height:100dvh}
+
+/* ═══════════════════════════════════════════ */
+/*  SIDEBAR                                   */
+/* ═══════════════════════════════════════════ */
+.sidebar{width:var(--sidebar-w);position:fixed;top:0;left:0;bottom:0;background:var(--bg-sidebar);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-right:1px solid var(--border);padding:24px 16px;display:flex;flex-direction:column;z-index:100;overflow:hidden;transition:background 0.5s}
+
+.sb-profile{text-align:center;margin-bottom:20px}
+.sb-avatar{width:56px;height:56px;border-radius:50%;margin:0 auto 8px;overflow:hidden;border:2.5px solid var(--pink)}
+.sb-avatar img{width:100%;height:100%;object-fit:cover}
+.sb-name{font-size:0.95rem;font-weight:600;color:var(--text)}
+.sb-name .flower{color:var(--accent);font-size:0.8rem}
+.sb-sub{font-size:0.68rem;color:var(--text-muted);font-weight:300;font-style:italic}
+
+.sb-nav{display:flex;flex-direction:column;gap:4px;margin-top:8px}
+.sb-nav-item{display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:var(--radius-sm);color:var(--text-sub);font-size:0.88rem;font-weight:400;cursor:pointer;transition:all 0.3s ease;position:relative}
+.sb-nav-item:hover{background:var(--pink-light);color:var(--accent-dark)}
+.sb-nav-item.active{color:var(--accent);font-weight:500}
+.sb-nav-item.active::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:3px;height:20px;background:var(--accent);border-radius:3px}
+.sb-nav-item svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.sb-badge{margin-left:auto;background:var(--danger);color:white;font-size:0.55rem;min-width:16px;height:16px;border-radius:50px;display:flex;align-items:center;justify-content:center;padding:0 4px;font-weight:600}
+
+.sb-bottom{margin-top:auto;padding-top:12px;border-top:1px solid var(--border)}
+.sb-social{display:flex;gap:8px;justify-content:center;margin-top:8px}
+.sb-social a{width:26px;height:26px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.6rem;color:var(--text-muted);transition:all 0.3s ease}
+.sb-social a:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+.sb-find{font-size:0.55rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:2px;text-align:center;margin-bottom:4px}
+
+/* ═══════════════════════════════════════════ */
+/*  MAIN                                      */
+/* ═══════════════════════════════════════════ */
+.main{flex:1;margin-left:var(--sidebar-w);min-height:100vh;overflow-y:auto;padding:0}
+
+.page{display:none;padding:36px 40px;width:100%;animation:fadeUp 0.5s ease both}
+.page.active{display:block}
+
+/* ═══════════════════════════════════════════ */
+/*  HOME - HERO                               */
+/* ═══════════════════════════════════════════ */
+.hero{display:grid;grid-template-columns:2fr 3fr;gap:40px;align-items:center;min-height:calc(100vh - 100px)}
+
+.hero-left{padding-right:20px}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;background:var(--pink-light);border:1px solid var(--pink-border);border-radius:50px;font-size:0.72rem;color:var(--accent);font-weight:400;margin-bottom:16px}
+.hero-badge .dot{width:6px;height:6px;background:var(--accent);border-radius:50%}
+
+.hero-title{font-size:2.8rem;font-weight:700;line-height:1.15;color:var(--text);margin-bottom:16px}
+.hero-title .cute{color:var(--accent);font-style:italic;font-weight:400}
+
+.hero-desc{font-size:0.85rem;color:var(--text-muted);margin-bottom:28px;line-height:1.6;font-weight:300}
+
+.hero-buttons{display:flex;gap:14px;margin-bottom:32px;flex-wrap:wrap}
+
+.btn-pink{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;background:var(--accent-gradient);color:white;border:none;border-radius:50px;font-family:inherit;font-size:0.82rem;font-weight:500;cursor:pointer;transition:all 0.35s ease;box-shadow:0 4px 16px rgba(232,160,160,0.25)}
+.btn-pink:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(232,160,160,0.35)}
+
+.btn-outline{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;background:transparent;border:1.5px solid var(--border);border-radius:50px;font-family:inherit;font-size:0.82rem;color:var(--text-sub);cursor:pointer;transition:all 0.3s ease}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+
+.hero-stats{display:flex;gap:16px}
+.stat-box{padding:14px 24px;border:1px solid var(--border);border-radius:var(--radius-sm);text-align:center;min-width:100px;background:var(--bg-card-solid);transition:all 0.3s ease}
+.stat-box:hover{border-color:var(--accent);transform:translateY(-2px)}
+.stat-num{font-size:1.4rem;font-weight:700;color:var(--accent)}
+.stat-label{font-size:0.6rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1.5px;font-weight:400}
+
+.hero-right{position:relative}
+.hero-gallery{display:grid;grid-template-columns:1fr 1fr;gap:10px;border-radius:var(--radius);overflow:hidden}
+.hero-gallery-item{aspect-ratio:1;background:var(--pink-light);border-radius:var(--radius-sm);overflow:hidden;position:relative;transition:transform 0.4s ease}
+.hero-gallery-item:hover{transform:scale(1.03)}
+.hero-gallery-item img{width:100%;height:100%;object-fit:cover}
+.hero-gallery-item.tall{grid-row:span 2}
+
+/* ═══════════════════════════════════════════ */
+/*  STATUS BADGE                              */
+/* ═══════════════════════════════════════════ */
+.status-inline{display:inline-flex;align-items:center;gap:6px;padding:4px 14px;border-radius:50px;font-size:0.7rem;font-weight:400;margin-top:12px}
+.status-inline.open{background:rgba(107,201,160,0.12);color:var(--success);border:1px solid rgba(107,201,160,0.25)}
+.status-inline.closed{background:rgba(232,128,128,0.12);color:var(--danger);border:1px solid rgba(232,128,128,0.25)}
+.status-dot{width:6px;height:6px;border-radius:50%;animation:pulse 2s ease-in-out infinite}
+.status-inline.open .status-dot{background:var(--success)}
+.status-inline.closed .status-dot{background:var(--danger)}
+
+/* ═══════════════════════════════════════════ */
+/*  ADMIN BAR                                 */
+/* ═══════════════════════════════════════════ */
+.admin-only{display:none!important}
+body.is-admin .admin-only{display:flex!important}
+
+.admin-bar{background:linear-gradient(135deg,rgba(232,160,160,0.08),rgba(200,160,200,0.08));border:1px solid var(--pink-border);border-radius:var(--radius-sm);padding:10px 18px;margin-bottom:20px;display:flex;align-items:center;gap:10px;font-size:0.75rem;color:var(--text-sub)}
+
+/* ═══════════════════════════════════════════ */
+/*  SECTION STYLES                            */
+/* ═══════════════════════════════════════════ */
+.page-head{margin-bottom:28px}
+.page-title{font-size:1.6rem;font-weight:700;color:var(--text)}
+.page-title .flower{color:var(--accent)}
+.page-sub{font-size:0.82rem;color:var(--text-muted);font-weight:300;margin-top:4px}
+
+.section-title{font-size:1rem;font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:8px;color:var(--text)}
+
+/* Tab buttons */
+.tabs{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+.tab{padding:8px 20px;border-radius:50px;border:1px solid var(--border);background:transparent;color:var(--text-sub);font-family:inherit;font-size:0.75rem;cursor:pointer;transition:all 0.3s ease;display:inline-flex;align-items:center;gap:6px}
+.tab:hover{border-color:var(--accent);color:var(--accent)}
+.tab.active{background:var(--accent-gradient);color:white;border-color:transparent;box-shadow:0 3px 12px rgba(232,160,160,0.2)}
+
+/* ═══════════════════════════════════════════ */
+/*  CARDS                                     */
+/* ═══════════════════════════════════════════ */
+.card{background:var(--bg-card-solid);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-sm);transition:all 0.35s ease;position:relative;overflow:hidden}
+.card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px)}
+
+/* PRODUCT GRID */
+.products-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+
+.product-card{cursor:pointer}
+.product-img-wrap{overflow:hidden;border-radius:var(--radius) var(--radius) 0 0;position:relative}
+.product-img{width:100%;aspect-ratio:1;object-fit:cover;transition:transform 0.5s ease}
+.product-card:hover .product-img{transform:scale(1.06)}
+.product-placeholder{width:100%;aspect-ratio:1;background:var(--pink-light);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:var(--text-muted);font-size:0.75rem}
+.product-placeholder span:first-child{font-size:1.5rem}
+.product-info{padding:14px 16px}
+.product-name{font-size:0.82rem;font-weight:500;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.product-price{font-size:0.85rem;font-weight:600;color:var(--accent)}
+.product-add{position:absolute;bottom:60px;right:12px;width:32px;height:32px;border-radius:50%;background:var(--accent-gradient);border:none;color:white;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.3s ease;box-shadow:0 3px 10px rgba(232,160,160,0.3);z-index:2}
+.product-add:hover{transform:scale(1.15) rotate(90deg)}
+
+/* COMMISSION CARDS */
+.commission-list{display:flex;flex-direction:column;gap:14px}
+.commission-card{padding:20px;display:flex;gap:16px;align-items:center}
+.commission-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent-gradient);border-radius:3px}
+.commission-thumb{width:80px;height:80px;border-radius:var(--radius-sm);object-fit:cover;flex-shrink:0}
+.commission-thumb-placeholder{width:80px;height:80px;border-radius:var(--radius-sm);background:var(--pink-light);display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:1.5rem;flex-shrink:0}
+.commission-info{flex:1;min-width:0}
+.commission-type{font-size:0.92rem;font-weight:600;margin-bottom:2px}
+.commission-desc{font-size:0.72rem;color:var(--text-muted);margin-bottom:6px}
+.commission-price{display:inline-flex;padding:4px 14px;background:var(--pink-light);border:1px solid var(--pink-border);border-radius:50px;font-size:0.78rem;font-weight:600;color:var(--accent)}
+.commission-order-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;background:var(--accent-gradient);color:white;border:none;border-radius:50px;font-family:inherit;font-size:0.72rem;cursor:pointer;transition:all 0.3s ease;box-shadow:0 3px 10px rgba(232,160,160,0.2);margin-top:8px}
+.commission-order-btn:hover{transform:translateY(-2px);box-shadow:0 5px 16px rgba(232,160,160,0.3)}
+
+/* GALLERY GRID */
+.gallery-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.gallery-item{border-radius:var(--radius-sm);overflow:hidden;cursor:pointer;position:relative;transition:all 0.4s ease;aspect-ratio:1}
+.gallery-item:hover{transform:scale(1.03);box-shadow:var(--shadow-md)}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease}
+.gallery-item:hover img{transform:scale(1.08)}
+.gallery-item-overlay{position:absolute;bottom:0;left:0;right:0;padding:24px 12px 12px;background:linear-gradient(to top,rgba(0,0,0,0.5),transparent);color:white;font-size:0.72rem;opacity:0;transform:translateY(6px);transition:all 0.3s ease}
+.gallery-item:hover .gallery-item-overlay{opacity:1;transform:translateY(0)}
+.gallery-placeholder{width:100%;height:100%;background:var(--pink-light);display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:2rem}
+
+/* QUEUE */
+.queue-list{display:flex;flex-direction:column;gap:10px}
+.queue-card{padding:14px 18px;display:flex;align-items:center;gap:14px;position:relative;overflow:hidden}
+.queue-card:hover{transform:translateX(4px)}
+.queue-num{width:32px;height:32px;border-radius:50%;background:var(--accent-gradient);color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.78rem;flex-shrink:0}
+.queue-info{flex:1;min-width:0}
+.queue-name{font-size:0.82rem;font-weight:500}
+.queue-detail{font-size:0.7rem;color:var(--text-muted)}
+.queue-status{padding:4px 12px;border-radius:50px;font-size:0.65rem;font-weight:500}
+.queue-status.pending{background:rgba(232,200,112,0.15);color:#B89840}
+.queue-status.doing{background:rgba(100,160,232,0.15);color:#4080C0;animation:breathe 2s ease-in-out infinite}
+.queue-status.done{background:rgba(107,201,160,0.12);color:var(--success)}
+.queue-progress{position:absolute;bottom:0;left:0;height:2px;border-radius:0 0 var(--radius-sm) var(--radius-sm);transition:width 0.5s ease}
+.queue-progress.pending{width:15%;background:var(--warning)}
+.queue-progress.doing{width:60%;background:var(--accent)}
+.queue-progress.done{width:100%;background:var(--success)}
+
+/* MONTHLY TABLE */
+.month-table{width:100%;border-collapse:separate;border-spacing:0;overflow:hidden;border-radius:var(--radius-sm);border:1px solid var(--border)}
+.month-table th{background:var(--accent-gradient);color:white;padding:12px;font-size:0.72rem;font-weight:500}
+.month-table td{padding:10px 12px;font-size:0.78rem;border-bottom:1px solid var(--border);text-align:center}
+
+/* CART */
+.cart-items{display:flex;flex-direction:column;gap:12px;margin-bottom:20px}
+.cart-item{display:flex;align-items:center;gap:14px;padding:14px 16px}
+.cart-item-img{width:50px;height:50px;border-radius:var(--radius-xs);object-fit:cover;flex-shrink:0}
+.cart-item-placeholder{width:50px;height:50px;border-radius:var(--radius-xs);background:var(--pink-light);display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:1rem;flex-shrink:0}
+.cart-item-info{flex:1;min-width:0}
+.cart-item-name{font-size:0.82rem;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cart-item-price{font-size:0.78rem;color:var(--accent);font-weight:600}
+.cart-qty{display:flex;align-items:center;gap:6px}
+.cart-qty button{width:28px;height:28px;border-radius:50%;border:1px solid var(--border);background:var(--bg-card-solid);color:var(--text);font-size:0.9rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.3s ease}
+.cart-qty button:hover{border-color:var(--accent);color:var(--accent)}
+.cart-qty span{font-weight:600;min-width:18px;text-align:center;font-size:0.85rem}
+.cart-remove{width:28px;height:28px;border-radius:50%;border:none;background:rgba(232,128,128,0.1);color:var(--danger);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.85rem;transition:all 0.3s ease;flex-shrink:0}
+.cart-remove:hover{background:var(--danger);color:white}
+.cart-empty{text-align:center;padding:60px 20px;color:var(--text-muted)}
+.cart-empty-icon{font-size:3rem;margin-bottom:12px;animation:float 3s ease-in-out infinite}
+.cart-summary{padding:20px;margin-top:12px}
+.cart-total-row{display:flex;justify-content:space-between;padding:8px 0;font-size:0.85rem}
+.cart-total-row.final{border-top:2px solid var(--border);padding-top:14px;margin-top:8px;font-size:1rem;font-weight:700}
+.cart-total-amount{color:var(--accent);font-size:1.2rem}
+
+/* SLIP */
+.slip-card{background:var(--bg-card-solid);border:1px solid var(--border);border-radius:var(--radius);padding:32px 28px;text-align:center;max-width:380px;margin:0 auto;position:relative;overflow:hidden;animation:fadeScale 0.5s ease both}
+.slip-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--accent-gradient)}
+.slip-logo{font-size:1.8rem;margin-bottom:8px}
+.slip-shop{font-size:1rem;font-weight:600;margin-bottom:4px}
+.slip-txn{font-size:0.68rem;color:var(--text-muted)}
+.slip-divider{border:none;border-top:1px dashed var(--border);margin:16px 0}
+.slip-items{text-align:left}
+.slip-row{display:flex;justify-content:space-between;padding:5px 0;font-size:0.78rem}
+.slip-total{display:flex;justify-content:space-between;font-size:1rem;font-weight:700;padding:12px 0;border-top:2px solid var(--border);margin-top:8px}
+.slip-total .amount{color:var(--accent)}
+.slip-footer{margin-top:16px;font-size:0.68rem;color:var(--text-muted)}
+
+/* ═══════════════════════════════════════════ */
+/*  INFO BOX (Like ref "Please Read")         */
+/* ═══════════════════════════════════════════ */
+.info-box{background:var(--bg-card-solid);border:1px solid var(--pink-border);border-radius:var(--radius);padding:24px;margin-bottom:20px}
+.info-box-title{font-size:0.82rem;font-weight:600;color:var(--accent);margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.info-box p,.info-box li{font-size:0.78rem;color:var(--text-sub);line-height:1.7;margin-bottom:4px}
+.info-box .highlight{color:var(--accent);font-weight:500}
+
+/* ═══════════════════════════════════════════ */
+/*  NOTICE BANNER                             */
+/* ═══════════════════════════════════════════ */
+.notice-banner{background:var(--pink-light);border:1px dashed var(--pink-border);border-radius:var(--radius-sm);padding:12px 18px;margin-bottom:20px;font-size:0.78rem;color:var(--text-sub);display:flex;align-items:center;gap:8px}
+
+/* ═══════════════════════════════════════════ */
+/*  CTA BANNER (like ref pink banner)         */
+/* ═══════════════════════════════════════════ */
+.cta-banner{background:var(--pink-light);border:1px solid var(--pink-border);border-radius:var(--radius);padding:24px 28px;display:flex;align-items:center;justify-content:space-between;margin-top:28px;gap:16px;flex-wrap:wrap}
+.cta-banner-text{font-size:0.82rem;font-weight:500;color:var(--text)}
+
+/* ═══════════════════════════════════════════ */
+/*  SETTINGS                                  */
+/* ═══════════════════════════════════════════ */
+.settings-section{margin-bottom:28px}
+.settings-title{font-size:0.88rem;font-weight:600;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.setting-row{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;margin-bottom:8px;background:var(--bg-card-solid);border:1px solid var(--border);border-radius:var(--radius-sm)}
+.setting-label{font-size:0.82rem;color:var(--text-sub)}
+.toggle{width:44px;height:24px;background:var(--border);border-radius:50px;position:relative;cursor:pointer;transition:all 0.3s ease}
+.toggle.active{background:var(--accent)}
+.toggle::after{content:'';position:absolute;width:18px;height:18px;border-radius:50%;background:white;top:3px;left:3px;transition:all 0.3s cubic-bezier(0.68,-0.55,0.265,1.55);box-shadow:0 2px 4px rgba(0,0,0,0.1)}
+.toggle.active::after{left:23px}
+.theme-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;padding:16px;background:var(--bg-card-solid);border:1px solid var(--border);border-radius:var(--radius-sm)}
+.theme-swatch{aspect-ratio:1;border-radius:var(--radius-xs);cursor:pointer;transition:all 0.3s ease;border:2px solid transparent}
+.theme-swatch:hover{transform:scale(1.15)}
+.theme-swatch.active{border-color:var(--text);transform:scale(1.1)}
+.theme-swatch.active::after{content:'\2713';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:white;font-size:0.75rem;font-weight:700;text-shadow:0 1px 3px rgba(0,0,0,0.5)}
+.theme-swatch{position:relative}
+.lang-options{display:flex;gap:8px}
+.lang-btn{padding:7px 18px;border-radius:50px;border:1px solid var(--border);background:transparent;color:var(--text-sub);font-family:inherit;font-size:0.78rem;cursor:pointer;transition:all 0.3s ease}
+.lang-btn.active{background:var(--accent-gradient);color:white;border-color:transparent}
+
+/* Admin login */
+.admin-login{padding:20px;text-align:center;background:var(--bg-card-solid);border:1px solid var(--border);border-radius:var(--radius-sm)}
+.admin-login .form-input{max-width:240px;margin:0 auto 10px;text-align:center}
+
+/* Contact links */
+.contact-links{display:flex;flex-direction:column;gap:10px}
+.contact-link{display:flex;align-items:center;gap:14px;padding:14px 18px;transition:all 0.3s ease}
+.contact-link:hover{transform:translateX(6px)}
+.contact-icon{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.85rem;font-weight:700;flex-shrink:0}
+.contact-name{font-size:0.85rem;font-weight:500}
+.contact-handle{font-size:0.7rem;color:var(--text-muted)}
+
+/* ═══════════════════════════════════════════ */
+/*  MODAL                                     */
+/* ═══════════════════════════════════════════ */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.3);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:500;padding:20px}
+.modal-overlay.show{display:flex}
+.modal-box{background:var(--bg-modal);backdrop-filter:blur(30px);border-radius:var(--radius);width:100%;max-width:440px;max-height:85vh;overflow-y:auto;padding:32px 28px;animation:modalSlide 0.4s ease both;position:relative}
+.modal-close{position:absolute;top:16px;right:16px;width:28px;height:28px;border-radius:50%;border:none;background:var(--bg-input);color:var(--text-sub);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.85rem;transition:all 0.3s ease}
+.modal-close:hover{background:var(--danger);color:white;transform:rotate(90deg)}
+.modal-title{font-size:1rem;font-weight:600;margin-bottom:20px;text-align:center}
+
+/* FORMS */
+.form-group{margin-bottom:14px}
+.form-label{display:block;font-size:0.75rem;font-weight:500;color:var(--text-sub);margin-bottom:5px}
+.form-input{width:100%;padding:10px 14px;background:var(--bg-input);border:1px solid var(--border);border-radius:var(--radius-xs);color:var(--text);font-family:inherit;font-size:0.82rem;transition:all 0.3s ease;outline:none}
+.form-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(232,160,160,0.1)}
+textarea.form-input{resize:vertical;min-height:70px}
+select.form-input{appearance:none;cursor:pointer}
+.file-upload{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;border:1.5px dashed var(--border);border-radius:var(--radius-sm);cursor:pointer;color:var(--text-muted);font-size:0.78rem;gap:6px;transition:all 0.3s ease}
+.file-upload:hover{border-color:var(--accent);color:var(--accent)}
+.file-upload input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.file-preview{width:100%;max-height:180px;object-fit:contain;border-radius:var(--radius-xs);margin-top:8px}
+
+/* Buttons */
+.btn-sm{padding:8px 16px;font-size:0.72rem}
+.btn-block{width:100%}
+.btn-danger{background:var(--danger);color:white;border:none;border-radius:50px;padding:4px 10px;font-size:0.65rem;cursor:pointer;font-family:inherit;transition:all 0.3s ease}
+
+/* ═══════════════════════════════════════════ */
+/*  LIGHTBOX                                  */
+/* ═══════════════════════════════════════════ */
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.88);display:none;align-items:center;justify-content:center;z-index:600;cursor:pointer;padding:24px}
+.lightbox.show{display:flex;animation:fadeIn 0.3s ease}
+.lightbox img{max-width:100%;max-height:90vh;object-fit:contain;border-radius:var(--radius-sm)}
+
+/* ═══════════════════════════════════════════ */
+/*  TOAST                                     */
+/* ═══════════════════════════════════════════ */
+.toast-container{position:fixed;top:20px;right:20px;display:flex;flex-direction:column;gap:8px;z-index:700;pointer-events:none}
+.toast{padding:12px 18px;background:var(--bg-card-solid);border:1px solid var(--border);border-radius:var(--radius-sm);box-shadow:var(--shadow-md);font-size:0.78rem;color:var(--text);display:flex;align-items:center;gap:8px;animation:toastIn 0.4s ease;pointer-events:auto}
+.toast.removing{animation:toastOut 0.3s ease forwards}
+
+/* CONFETTI */
+.confetti-container{position:fixed;inset:0;pointer-events:none;z-index:650;overflow:hidden}
+.confetti-piece{position:absolute;top:-20px;animation:confettiFall 3s linear forwards}
+
+/* ADMIN FAB */
+.admin-fab{position:fixed;bottom:20px;right:20px;width:48px;height:48px;border-radius:50%;background:var(--accent-gradient);border:none;color:white;font-size:1.3rem;cursor:pointer;box-shadow:0 4px 20px rgba(232,160,160,0.3);display:flex;align-items:center;justify-content:center;transition:all 0.35s ease;z-index:50}
+.admin-fab:hover{transform:scale(1.1) rotate(90deg)}
+
+/* ═══════════════════════════════════════════ */
+/*  BOTTOM NAV (MOBILE)                       */
+/* ═══════════════════════════════════════════ */
+.bottom-nav{position:fixed;bottom:10px;left:50%;transform:translateX(-50%);width:calc(100% - 28px);max-width:400px;height:var(--nav-h);background:var(--bg-card-solid);border:1px solid var(--border);border-radius:32px;display:none;align-items:center;justify-content:space-around;padding:0 6px;z-index:100;box-shadow:var(--shadow-md)}
+.nav-item{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6px 12px;border-radius:16px;cursor:pointer;transition:all 0.3s ease;color:var(--text-muted);gap:2px}
+.nav-item.active{color:var(--accent)}
+.nav-item.active::before{content:'';position:absolute;top:2px;width:16px;height:2px;background:var(--accent);border-radius:2px}
+.nav-item{position:relative}
+.nav-icon{font-size:1.15rem}
+.nav-label{font-size:0.55rem;font-weight:400}
+.nav-badge-m{position:absolute;top:1px;right:2px;min-width:15px;height:15px;background:var(--danger);color:white;border-radius:50px;font-size:0.5rem;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 3px}
+
+/* ═══════════════════════════════════════════ */
+/*  RESPONSIVE                                */
+/* ═══════════════════════════════════════════ */
+@media(max-width:1024px){
+  .hero{grid-template-columns:1fr;gap:24px}
+  .hero-left{padding-right:0}
+  .hero-title{font-size:2rem}
+  .hero-right{max-width:500px}
+  .products-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+@media(max-width:768px){
+  .sidebar{display:none}
+  .main{margin-left:0}
+  .page{padding:20px 16px;padding-bottom:calc(var(--nav-h) + 20px)}
+  .bottom-nav{display:flex}
+  .hero-title{font-size:1.6rem}
+  .hero-stats{flex-wrap:wrap}
+  .hero-gallery{grid-template-columns:1fr 1fr}
+  .products-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .gallery-grid{grid-template-columns:repeat(3,1fr)}
+  .admin-fab{bottom:calc(var(--nav-h) + 20px)}
+}
+
+@media(min-width:1200px){
+  .products-grid{grid-template-columns:repeat(4,1fr)}
+  .gallery-grid{grid-template-columns:repeat(6,1fr)}
+}
+
+/* ═══════════════════════════════════════════ */
+/*  UTILITIES                                 */
+/* ═══════════════════════════════════════════ */
+.mt-8{margin-top:8px}.mt-12{margin-top:12px}.mt-16{margin-top:16px}.mt-20{margin-top:20px}
+.mb-8{margin-bottom:8px}.mb-12{margin-bottom:12px}.mb-16{margin-bottom:16px}.mb-20{margin-bottom:20px}
+.flex{display:flex}.flex-col{flex-direction:column}.items-center{align-items:center}.justify-between{justify-content:space-between}
+.gap-8{gap:8px}.gap-12{gap:12px}
+.text-center{text-align:center}
+.text-muted{color:var(--text-muted)}
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+
+<!-- LANDING -->
+<div id="landing">
+  <div class="landing-sparkles" id="landingSparkles"></div>
+  <div class="landing-card">
+    <div class="landing-avatar"><img src="pic/profile.jpg" alt="Avatar" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect fill=%27%23F5C6C6%27 width=%27100%27 height=%27100%27/%3E%3Ctext x=%2750%27 y=%2758%27 text-anchor=%27middle%27 fill=%27white%27 font-size=%2730%27%3E%E2%9C%BF%3C/text%3E%3C/svg%3E'"></div>
+    <div class="landing-greeting">&#10047; hello hello &#10047;</div>
+    <div class="landing-name">I'm <span>Babumii</span></div>
+    <div class="landing-sub">Click below to view the artwork</div>
+    <button class="landing-btn" onclick="enterSite()">Enter my world &nbsp;&#10047;</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()"><img id="lightboxImg" src="" alt=""></div>
+
+<!-- CONFETTI -->
+<div class="confetti-container" id="confettiContainer"></div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModalForce()">&#x2715;</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app" style="opacity:0;transition:opacity 0.5s ease">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sb-profile">
+      <div class="sb-avatar"><img src="pic/profile.jpg" alt="" onerror="this.parentElement.innerHTML='&#10047;'"></div>
+      <div class="sb-name">Babumii <span class="flower">&#10047;</span></div>
+      <div class="sb-sub">Commission Artist</div>
+    </div>
+    <nav class="sb-nav" id="sidebarNav"></nav>
+    <div class="sb-bottom">
+      <div class="sb-find">FIND ME &#9825;</div>
+      <div class="sb-social">
+        <a href="https://discord.gg/5fARWKzFR3" target="_blank" title="Discord" style="width:30px;height:30px"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg></a>
+        <a href="https://www.facebook.com/pongpang.d.nee" target="_blank" title="Facebook" style="width:30px;height:30px"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- HOME -->
+    <div class="page active" id="page-home">
+      <!-- Admin bar -->
+      <div class="admin-bar admin-only">
+        <span>&#9889;</span>
+        <span data-i18n="adminMode">Admin Mode</span>
+        <button class="btn-pink btn-sm" style="margin-left:auto;" onclick="editShopNote()">
+          <span data-i18n="editNote">Edit Note</span>
+        </button>
+      </div>
+
+      <div class="hero">
+        <div class="hero-left anim-up">
+          <div class="hero-badge"><span class="dot"></span> Creative Studio</div>
+          <h1 class="hero-title">Bringing <span class="cute">cute</span><br>worlds to life.</h1>
+          <p class="hero-desc" id="shopBioText"></p>
+          <div class="status-inline" id="statusBadge" onclick="isAdmin && openStatusModal()">
+            <span class="status-dot"></span>
+            <span id="statusText"></span>
+          </div>
+          <div class="hero-buttons mt-16">
+            <button class="btn-pink" onclick="navigateTo('gallery')">See my art &nbsp;&#10132;</button>
+            <button class="btn-outline" onclick="navigateTo('pricing')">Commission me &nbsp;&#9825;</button>
+          </div>
+          <span id="galleryCount" style="display:none">0</span>
+          <span id="productCount" style="display:none">0</span>
+          <span id="queueCount" style="display:none">0</span>
+        </div>
+        <div class="hero-right anim-up d2">
+          <div class="hero-gallery" id="heroGallery"></div>
+        </div>
+      </div>
+
+      <!-- Notice (hidden, kept for JS) -->
+      <span id="shopNote" style="display:none"></span>
+
+      <!-- Hidden containers for JS rendering (not displayed on home) -->
+      <div id="productsGrid" style="display:none"></div>
+      <div id="commissionList" style="display:none"></div>
+      <div id="doList" style="display:none"></div>
+      <div id="dontList" style="display:none"></div>
+      <div id="tosList" style="display:none"></div>
+    </div>
+
+    <!-- GALLERY -->
+    <div class="page" id="page-gallery">
+      <div class="page-head">
+        <div class="page-title">My Works <span class="flower">&#10047;</span></div>
+        <div class="page-sub">Click any artwork to see it full size &#9825;</div>
+      </div>
+      <div class="tabs" id="galleryFilter"></div>
+      <button class="btn-pink btn-sm admin-only mb-16" onclick="openAddGalleryModal()">+ Add Work</button>
+      <div class="gallery-grid" id="galleryGrid"></div>
+    </div>
+
+    <!-- PRICING -->
+    <div class="page" id="page-pricing">
+      <div class="page-head">
+        <div class="page-title" style="font-style:italic">ราคางาน <span class="flower">&#10047;</span></div>
+        <div class="page-sub">ราคา commission แต่ละประเภท — สนใจทักมาได้เลยนะ ♡</div>
+      </div>
+
+      <!-- Notice -->
+      <div class="notice-banner mb-20">
+        <span>&#10047;</span>
+        <span>ในบางงานจะราคาไม่เท่ากันสามารถส่งรูปมาถามราคาก่อนได้คั้บ จำกัดคิวละไม่เกิน 4 รูป</span>
+      </div>
+
+      <!-- Pricing Cards -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px" id="pricingCards"></div>
+
+      <!-- Queue time -->
+      <div class="info-box mt-20">
+        <div class="info-box-title">&#9200; คิวเวลาในการทำงาน • Queue Time</div>
+        <p><span class="highlight">&#10063; Normal</span> ─ 5-7 days</p>
+        <p><span class="highlight">&#10063; x2 Rush</span> ─ 3-4 days</p>
+        <p><span class="highlight">&#10063; x3 Express</span> ─ 1-2 days</p>
+      </div>
+
+      <!-- CTA -->
+      <div class="cta-banner mt-20">
+        <div class="cta-banner-text">สอบถามราคานอกเหนือจากนี้ได้นะคั้บ</div>
+        <button class="btn-outline btn-sm" onclick="window.open('https://discord.gg/5fARWKzFR3','_blank')">ติดต่อฉัน &#9993;</button>
+      </div>
+    </div>
+
+    <!-- ABOUT -->
+    <div class="page" id="page-about">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;min-height:60vh">
+        <div style="position:relative">
+          <img src="pic/profile.jpg" alt="About" style="width:100%;border-radius:var(--radius);box-shadow:var(--shadow-lg)">
+          <div class="sparkle" style="top:10px;right:10px;width:12px;height:12px"></div>
+        </div>
+        <div>
+          <div class="hero-badge mb-12"><span class="dot"></span> About Me</div>
+          <h2 style="font-size:2rem;font-weight:700;margin-bottom:8px">Hi, I'm <span style="color:var(--accent);font-style:italic">Babumii</span>!</h2>
+          <p style="font-size:0.85rem;color:var(--text-sub);line-height:1.8;margin-bottom:20px">สวัสดีค่ะ มีชื่อเล่นว่าป๋องแป้ง ชอบออกแบบงานน่ารักๆ โทน pastel เป็นพิเศษ ชอบดูแลที่เข้าชมผลงานและติดตามเรานะคะ ♡</p>
+          <div style="font-size:0.72rem;color:var(--text-muted);letter-spacing:1.5px;margin-bottom:12px">SKILLS &#10047;</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px">
+            <span class="tab" style="cursor:default;font-size:0.7rem">Character Design</span>
+            <span class="tab" style="cursor:default;font-size:0.7rem">Digital Illustration</span>
+            <span class="tab" style="cursor:default;font-size:0.7rem">Chibi Art</span>
+            <span class="tab" style="cursor:default;font-size:0.7rem">GIF Animation</span>
+            <span class="tab" style="cursor:default;font-size:0.7rem">Pastel Colors</span>
+            <span class="tab" style="cursor:default;font-size:0.7rem">Cutieset</span>
+          </div>
+          <button class="btn-pink" onclick="navigateTo('contact')">Let's work together &#9825;</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="page" id="page-contact">
+      <!-- Login button top-right -->
+      <div style="display:flex;justify-content:flex-end;margin-bottom:20px">
+        <div id="adminSection">
+          <div id="adminLoginArea">
+            <button class="btn-outline btn-sm" onclick="showLoginModal()" style="font-size:0.72rem;opacity:0.5">&#x1F511; Login</button>
+          </div>
+          <div id="adminLogoutArea" style="display:none">
+            <div style="display:flex;align-items:center;gap:8px">
+              <span style="font-size:0.72rem;color:var(--success)">&#9989; Admin</span>
+              <button class="btn-outline btn-sm" onclick="adminLogout()" style="font-size:0.68rem">Logout</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="hero-badge mb-12"><span class="dot"></span> Get In Touch</div>
+        <h2 style="font-size:2rem;font-weight:700;margin-bottom:8px">Let's make something <span style="color:var(--accent);font-style:italic">cute</span> together!</h2>
+       
+
+        <div class="contact-links" id="contactLinks" style="max-width:500px"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav" id="bottomNav"></nav>
+
+<!-- ADMIN FAB -->
+<button class="admin-fab admin-only" onclick="openAdminMenu()">+</button>
+
+<script>
+// ═════════════════════════════════════════
+//  STATE
+// ═════════════════════════════════════════
+const ADMIN_PASSWORD='hanae';
+let isAdmin=false;
+let currentLang=localStorage.getItem('lang')||'th';
+let currentMode=localStorage.getItem('mode')||'light';
+let cart=JSON.parse(localStorage.getItem('cart')||'[]');
+let shopOpen=JSON.parse(localStorage.getItem('shopOpen')??'true');
+let shopNote=localStorage.getItem('shopNote')||'\u0e43\u0e19\u0e1a\u0e32\u0e07\u0e07\u0e32\u0e19\u0e08\u0e30\u0e23\u0e32\u0e04\u0e32\u0e44\u0e21\u0e48\u0e40\u0e17\u0e48\u0e32\u0e01\u0e31\u0e19\u0e2a\u0e32\u0e21\u0e32\u0e23\u0e16\u0e2a\u0e48\u0e07\u0e23\u0e39\u0e1b\u0e21\u0e32\u0e16\u0e32\u0e21\u0e23\u0e32\u0e04\u0e32\u0e01\u0e48\u0e2d\u0e19\u0e44\u0e14\u0e49\u0e04\u0e31\u0e49\u0e1a \u0e08\u0e33\u0e01\u0e31\u0e14\u0e04\u0e34\u0e27\u0e25\u0e30\u0e44\u0e21\u0e48\u0e40\u0e01\u0e34\u0e19 4 \u0e23\u0e39\u0e1b';
+let shopName=localStorage.getItem('shopName')||'Babumii';
+
+let products=JSON.parse(localStorage.getItem('products')||'null')||[];
+// Pricing categories for the Pricing page
+const pricingData=[
+  {
+    id:'single', name:'Single', img:'single/IMG_3282.png', filter:'single',
+    prices:'ครึ่งตัว 200฿ / เต็มตัว 300฿',
+    extras:['พื้นหลัง +50-200฿ ตามรายละเอียด','ดุ้กดิ้ก +100-200฿ / กระพิบตาปิ๊งๆ +50฿','เชิงพาณิชย์ ราคา x2'],
+  },
+  {
+    id:'couple', name:'Couple', img:'couple/IMG_3274.png', filter:'couple',
+    prices:'ครึ่งตัว 350฿ / เต็มตัว 550฿ / +เพิ่มคนละ 127฿',
+    extras:['พื้นหลัง +50-200฿ ตามรายละเอียด','ดุ้กดิ้ก +100-200฿ / กระพิบตาปิ๊งๆ +50฿','เชิงพาณิชย์ ราคา x2'],
+  },
+  {
+    id:'group', name:'Group', img:'group/IMG_2914.png', filter:'group',
+    prices:'คิดราคาตามจำนวนคน (คนละ 127฿ ขึ้นไป)',
+    extras:['พื้นหลัง +50-200฿ ตามรายละเอียด','ดุ้กดิ้ก +100-200฿','เชิงพาณิชย์ ราคา x2'],
+  },
+  {
+    id:'mumi', name:'มุมิ', img:'มุมื/IMG_2419.png', filter:'mumi',
+    prices:'89฿',
+    extras:['ตัวละครมุมิน่ารัก','เชิงพาณิชย์ ราคา x2'],
+  },
+];
+let commissions=[];
+let gallery=JSON.parse(localStorage.getItem('gallery')||'null')||[
+  {id:1,img:'single/IMG_3282.png',category:'single',title:'Single'},
+  {id:2,img:'single/a93619440d3fed0e.png',category:'single',title:'Single'},
+  {id:3,img:'single/IMG_3065.png',category:'single',title:'Single'},
+  {id:4,img:'single/image.png',category:'single',title:'Single'},
+  {id:5,img:'single/image1.png',category:'single',title:'Single'},
+  {id:6,img:'single/image2.png',category:'single',title:'Single'},
+  {id:7,img:'single/IMG_2516.png',category:'single',title:'Single'},
+  {id:8,img:'single/IMG_2517.png',category:'single',title:'Single'},
+  {id:9,img:'single/IMG_2515.png',category:'single',title:'Single'},
+  {id:10,img:'single/IMG_2216.png',category:'single',title:'Single'},
+  {id:11,img:'single/IMG_2217.png',category:'single',title:'Single'},
+  {id:12,img:'single/IMG_2182.png',category:'single',title:'Single'},
+  {id:13,img:'single/IMG_2178.png',category:'single',title:'Single'},
+  {id:14,img:'single/IMG_2081.png',category:'single',title:'Single'},
+  {id:15,img:'single/Dobbylinenam.png',category:'single',title:'Dobby'},
+  {id:16,img:'single/Goodbyelinenam.png',category:'single',title:'Goodbye'},
+  {id:20,img:'couple/IMG_1992.png',category:'couple',title:'Couple'},
+  {id:21,img:'couple/Khaohomlogo1.png',category:'couple',title:'Logo'},
+  {id:22,img:'couple/CoupleLinenam.png',category:'couple',title:'Couple'},
+  {id:23,img:'couple/IMG_2075.PNG',category:'couple',title:'Couple'},
+  {id:24,img:'couple/IMG_2180.png',category:'couple',title:'Couple'},
+  {id:25,img:'couple/IMG_2179.png',category:'couple',title:'Couple'},
+  {id:26,img:'couple/IMG_2218.png',category:'couple',title:'Couple'},
+  {id:27,img:'couple/IMG_2230.png',category:'couple',title:'Couple'},
+  {id:28,img:'couple/IMG_2276.png',category:'couple',title:'Couple'},
+  {id:29,img:'couple/IMG_2560.png',category:'couple',title:'Couple'},
+  {id:30,img:'couple/image.png',category:'couple',title:'Couple'},
+  {id:31,img:'couple/IMG_2868.png',category:'couple',title:'Couple'},
+  {id:32,img:'couple/IMG_3191.png',category:'couple',title:'Couple'},
+  {id:33,img:'couple/IMG_3274.png',category:'couple',title:'Couple'},
+  {id:34,img:'couple/image44.png',category:'couple',title:'Couple'},
+  {id:35,img:'couple/image12.png',category:'couple',title:'Couple'},
+  {id:40,img:'group/IMG_2514.png',category:'group',title:'Group'},
+  {id:41,img:'group/IMG_2914.png',category:'group',title:'Group'},
+  {id:50,img:'\u0e14\u0e38\u0e49\u0e01\u0e14\u0e34\u0e49\u0e01/Dream21-ezgif.com-overlay.gif',category:'dukdik',title:'Dukdik'},
+  {id:51,img:'\u0e14\u0e38\u0e49\u0e01\u0e14\u0e34\u0e49\u0e01/Dream3-ezgif.com-overlay_1.gif',category:'dukdik',title:'Dukdik'},
+  {id:52,img:'\u0e14\u0e38\u0e49\u0e01\u0e14\u0e34\u0e49\u0e01/ezgif.com-overlay.gif',category:'dukdik',title:'Dukdik'},
+  {id:60,img:'\u0e21\u0e38\u0e21\u0e37/IMG_2209.gif',category:'mumi',title:'Mumi'},
+  {id:61,img:'\u0e21\u0e38\u0e21\u0e37/IMG_2419.png',category:'mumi',title:'Mumi'},
+  {id:62,img:'\u0e21\u0e38\u0e21\u0e37/IMG_2420.png',category:'mumi',title:'Mumi'},
+  {id:63,img:'\u0e21\u0e38\u0e21\u0e37/IMG_2421.png',category:'mumi',title:'Mumi'},
+  {id:64,img:'\u0e21\u0e38\u0e21\u0e37/IMG_3369.png',category:'mumi',title:'Mumi'},
+  {id:70,img:'cutieset/IMG_2966.png',category:'cutieset',title:'Cutieset'},
+  {id:71,img:'cutieset/IMG_3194.png',category:'cutieset',title:'Cutieset'},
+];
+let queue=JSON.parse(localStorage.getItem('queue')||'null')||[];
+
+const themes=[
+  {id:'sakura',name:'Sakura',color:'#F5C6C6'},
+  {id:'ocean',name:'Ocean',color:'#A0D0E8'},
+  {id:'lavender',name:'Lavender',color:'#C0A8E8'},
+  {id:'mint',name:'Mint',color:'#A0D8C0'},
+  {id:'sunset',name:'Sunset',color:'#E8C0A0'},
+  {id:'cyber',name:'Cyber',color:'#A0A8E8'},
+];
+
+const galleryCats=[
+  {id:'all',label:'\u0e17\u0e31\u0e49\u0e07\u0e2b\u0e21\u0e14',labelEn:'All'},
+  {id:'single',label:'\u{1F407} Single',labelEn:'\u{1F407} Single'},
+  {id:'couple',label:'\u{1F407} Couple',labelEn:'\u{1F407} Couple'},
+  {id:'group',label:'\u{1F407} Group',labelEn:'\u{1F407} Group'},
+  {id:'dukdik',label:'\u{1F407} \u0e14\u0e38\u0e49\u0e01\u0e14\u0e34\u0e49\u0e01',labelEn:'\u{1F407} Animated'},
+  {id:'mumi',label:'\u{1F407} \u0e21\u0e38\u0e21\u0e34',labelEn:'\u{1F407} Mumi'},
+  {id:'cutieset',label:'\u{1F407} Cutieset',labelEn:'\u{1F407} Cutieset'},
+];
+
+const doItems=[
+  {th:'OC (\u0e15\u0e31\u0e27\u0e25\u0e30\u0e04\u0e23\u0e2a\u0e48\u0e27\u0e19\u0e15\u0e31\u0e27)',en:'OC (Original Characters)'},
+  {th:'Fanart',en:'Fanart'},
+  {th:'Couple / Group',en:'Couple / Group'},
+  {th:'\u0e21\u0e38\u0e21\u0e34',en:'Mumi'},
+  {th:'\u0e14\u0e38\u0e49\u0e01\u0e14\u0e34\u0e49\u0e01 / GIF',en:'Animated / GIF'},
+  {th:'Cutieset',en:'Cutieset'},
+];
+const dontItems=[
+  {th:'NSFW',en:'NSFW'},
+  {th:'\u0e40\u0e25\u0e37\u0e2d\u0e14 / Gore',en:'Blood / Gore'},
+  {th:'\u0e2b\u0e38\u0e48\u0e19\u0e22\u0e19\u0e15\u0e4c / \u0e40\u0e01\u0e23\u0e32\u0e30\u0e2b\u0e19\u0e31\u0e01\u0e0b\u0e31\u0e1a\u0e0b\u0e49\u0e2d\u0e19',en:'Complex mecha / Heavy armor'},
+  {th:'\u0e2b\u0e49\u0e32\u0e21\u0e04\u0e2d\u0e1b\u0e1b\u0e35\u0e49 \u0e40\u0e17\u0e23\u0e0b \u0e2a\u0e23\u0e32\u0e1f \u0e41\u0e2d\u0e1a\u0e2d\u0e49\u0e32\u0e07\u0e27\u0e48\u0e32\u0e40\u0e1b\u0e47\u0e19\u0e1a\u0e38\u0e04\u0e04\u0e25\u0e2d\u0e37\u0e48\u0e19',en:'No copying, tracing, claiming as someone else\'s work'},
+];
+const tosItems=[
+  {th:'\u0e08\u0e30\u0e40\u0e23\u0e34\u0e48\u0e21\u0e17\u0e33\u0e07\u0e32\u0e19\u0e2b\u0e25\u0e31\u0e07\u0e08\u0e32\u0e01\u0e42\u0e2d\u0e19\u0e40\u0e07\u0e34\u0e19\u0e40\u0e17\u0e48\u0e32\u0e19\u0e31\u0e49\u0e19\u0e04\u0e48\u0e30 \u0e01\u0e31\u0e19\u0e01\u0e32\u0e23\u0e2a\u0e31\u0e48\u0e07\u0e07\u0e32\u0e19\u0e41\u0e25\u0e49\u0e27\u0e43\u0e2b\u0e49\u0e41\u0e21\u0e48\u0e04\u0e49\u0e32\u0e17\u0e33\u0e40\u0e01\u0e49\u0e2d',en:'Payment first before starting work'},
+  {th:'\u0e08\u0e33\u0e01\u0e31\u0e14\u0e04\u0e34\u0e27\u0e25\u0e30\u0e44\u0e21\u0e48\u0e40\u0e01\u0e34\u0e19 4 \u0e23\u0e39\u0e1b',en:'Max 4 artworks per queue slot'},
+  {th:'\u0e43\u0e0a\u0e49\u0e40\u0e0a\u0e34\u0e07\u0e1e\u0e32\u0e13\u0e34\u0e0a\u0e22\u0e4c \u0e23\u0e32\u0e04\u0e32 x2',en:'Commercial use: price x2'},
+  {th:'\u0e04\u0e34\u0e27 Normal 5-7 \u0e27\u0e31\u0e19 / x2 \u0e40\u0e23\u0e48\u0e07 3-4 \u0e27\u0e31\u0e19 / x3 \u0e14\u0e48\u0e27\u0e19 1-2 \u0e27\u0e31\u0e19',en:'Queue: Normal 5-7 days / x2 Rush 3-4 days / x3 Express 1-2 days'},
+  {th:'\u0e22\u0e01\u0e40\u0e25\u0e34\u0e01\u0e07\u0e32\u0e19\u0e44\u0e14\u0e49\u0e41\u0e15\u0e48\u0e40\u0e21\u0e37\u0e48\u0e2d\u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e40\u0e23\u0e34\u0e48\u0e21\u0e27\u0e32\u0e14 \u0e44\u0e21\u0e48\u0e04\u0e37\u0e19\u0e40\u0e07\u0e34\u0e19',en:'Cancellation before work starts only, no refunds after'},
+];
+const contacts=[
+  {name:'Discord',handle:'Babumii Server',icon:'\u{1F3AE}',url:'https://discord.gg/5fARWKzFR3',color:'#5865F2'},
+  {name:'Facebook',handle:'Babumii',icon:'f',url:'https://www.facebook.com/pongpang.d.nee',color:'#1877F2'},
+];
+
+// i18n (simplified)
+const i18n={
+  th:{statusOpen:'\u0e40\u0e1b\u0e34\u0e14\u0e23\u0e31\u0e1a\u0e07\u0e32\u0e19',statusClosed:'\u0e1b\u0e34\u0e14\u0e23\u0e31\u0e1a\u0e07\u0e32\u0e19',shopBio:'ยินดีต้อนรับเข้าสู่แหล่งรวมผลงานน่ารักๆ ของน้องป๋องแป้ง ♡',forSale:'\u0e27\u0e32\u0e07\u0e08\u0e33\u0e2b\u0e19\u0e48\u0e32\u0e22',commissionPricing:'\u0e23\u0e32\u0e04\u0e32\u0e04\u0e2d\u0e21\u0e21\u0e34\u0e0a\u0e0a\u0e31\u0e19',canDo:'\u0e2a\u0e34\u0e48\u0e07\u0e17\u0e35\u0e48\u0e23\u0e31\u0e1a\u0e27\u0e32\u0e14',cantDo:'\u0e2a\u0e34\u0e48\u0e07\u0e17\u0e35\u0e48\u0e44\u0e21\u0e48\u0e23\u0e31\u0e1a\u0e27\u0e32\u0e14',tos:'\u0e40\u0e07\u0e37\u0e48\u0e2d\u0e19\u0e44\u0e02',addCharacter:'\u0e15\u0e31\u0e27\u0e25\u0e30\u0e04\u0e23\u0e40\u0e1e\u0e34\u0e48\u0e21 +80%',commercial:'\u0e40\u0e0a\u0e34\u0e07\u0e1e\u0e32\u0e13\u0e34\u0e0a\u0e22\u0e4c x2',priceNote:'\u0e23\u0e32\u0e04\u0e32\u0e1b\u0e23\u0e30\u0e21\u0e32\u0e13 150\u0e3f \u0e41\u0e01\u0e49/\u0e40\u0e1e\u0e34\u0e48\u0e21\u0e1b\u0e38\u0e48\u0e21 \u0e2d\u0e32\u0e08\u0e21\u0e35\u0e04\u0e34\u0e14\u0e23\u0e32\u0e04\u0e32\u0e15\u0e32\u0e21 line',added:'\u0e40\u0e1e\u0e34\u0e48\u0e21\u0e25\u0e07\u0e15\u0e30\u0e01\u0e23\u0e49\u0e32\u0e41\u0e25\u0e49\u0e27',removed:'\u0e25\u0e1a\u0e2d\u0e2d\u0e01\u0e41\u0e25\u0e49\u0e27',saved:'\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e41\u0e25\u0e49\u0e27',passwordWrong:'\u0e23\u0e2b\u0e31\u0e2a\u0e1c\u0e48\u0e32\u0e19\u0e44\u0e21\u0e48\u0e16\u0e39\u0e01',loginSuccess:'\u0e40\u0e02\u0e49\u0e32\u0e2a\u0e39\u0e48\u0e23\u0e30\u0e1a\u0e1a\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08',logoutSuccess:'\u0e2d\u0e2d\u0e01\u0e08\u0e32\u0e01\u0e23\u0e30\u0e1a\u0e1a\u0e41\u0e25\u0e49\u0e27',emptyCart:'\u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e21\u0e35\u0e2a\u0e34\u0e19\u0e04\u0e49\u0e32\u0e43\u0e19\u0e15\u0e30\u0e01\u0e23\u0e49\u0e32',emptyCartSub:'\u0e01\u0e14\u0e1b\u0e38\u0e48\u0e21 + \u0e17\u0e35\u0e48\u0e2a\u0e34\u0e19\u0e04\u0e49\u0e32\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e40\u0e1e\u0e34\u0e48\u0e21',subtotal:'\u0e23\u0e27\u0e21',total:'\u0e22\u0e2d\u0e14\u0e23\u0e27\u0e21',checkout:'\u0e2a\u0e23\u0e49\u0e32\u0e07\u0e2a\u0e25\u0e34\u0e1b',screenshotNote:'\u0e01\u0e23\u0e38\u0e13\u0e32\u0e41\u0e04\u0e1b\u0e2b\u0e19\u0e49\u0e32\u0e08\u0e2d\u0e41\u0e25\u0e49\u0e27\u0e2a\u0e48\u0e07\u0e43\u0e2b\u0e49\u0e41\u0e2d\u0e14\u0e21\u0e34\u0e19',txnId:'\u0e23\u0e2b\u0e31\u0e2a\u0e23\u0e32\u0e22\u0e01\u0e32\u0e23',date:'\u0e27\u0e31\u0e19\u0e17\u0e35\u0e48',confirmDelete:'\u0e15\u0e49\u0e2d\u0e07\u0e01\u0e32\u0e23\u0e25\u0e1a?',pending:'\u0e23\u0e2d\u0e04\u0e34\u0e27',doing:'\u0e01\u0e33\u0e25\u0e31\u0e07\u0e17\u0e33',done:'\u0e40\u0e2a\u0e23\u0e47\u0e08\u0e41\u0e25\u0e49\u0e27',month:'\u0e40\u0e14\u0e37\u0e2d\u0e19',totalQueue:'\u0e04\u0e34\u0e27\u0e17\u0e31\u0e49\u0e07\u0e2b\u0e21\u0e14',completed:'\u0e40\u0e2a\u0e23\u0e47\u0e08',inProgress:'\u0e01\u0e33\u0e25\u0e31\u0e07\u0e17\u0e33',waiting:'\u0e23\u0e2d',editNote:'\u0e41\u0e01\u0e49\u0e44\u0e02\u0e1b\u0e23\u0e30\u0e01\u0e32\u0e28',adminMode:'\u0e42\u0e2b\u0e21\u0e14\u0e41\u0e2d\u0e14\u0e21\u0e34\u0e19',askPrice:'\u0e2a\u0e2d\u0e1a\u0e16\u0e32\u0e21\u0e23\u0e32\u0e04\u0e32\u0e19\u0e2d\u0e01\u0e40\u0e2b\u0e19\u0e37\u0e2d\u0e08\u0e32\u0e01\u0e19\u0e35\u0e49\u0e44\u0e14\u0e49\u0e19\u0e30\u0e04\u0e30',name:'\u0e0a\u0e37\u0e48\u0e2d',detail:'\u0e23\u0e32\u0e22\u0e25\u0e30\u0e40\u0e2d\u0e35\u0e22\u0e14',price:'\u0e23\u0e32\u0e04\u0e32',deadline:'\u0e01\u0e33\u0e2b\u0e19\u0e14\u0e2a\u0e48\u0e07',status:'\u0e2a\u0e16\u0e32\u0e19\u0e30',title:'\u0e0a\u0e37\u0e48\u0e2d',image:'\u0e23\u0e39\u0e1b',save:'\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01',cancel:'\u0e22\u0e01\u0e40\u0e25\u0e34\u0e01',category:'\u0e2b\u0e21\u0e27\u0e14\u0e2b\u0e21\u0e39\u0e48',uploadImage:'\u0e01\u0e14\u0e2d\u0e31\u0e1e\u0e42\u0e2b\u0e25\u0e14\u0e23\u0e39\u0e1b',noProducts:'\u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e21\u0e35\u0e2a\u0e34\u0e19\u0e04\u0e49\u0e32',noGallery:'\u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e21\u0e35\u0e1c\u0e25\u0e07\u0e32\u0e19'},
+  en:{statusOpen:'Open for Orders',statusClosed:'Closed',shopBio:'Welcome to Pongpang\'s cute artwork collection ♡',forSale:'For Sale',commissionPricing:'Commission Pricing',canDo:'Things I Can Draw',cantDo:"Things I Won't Draw",tos:'Terms of Service',addCharacter:'Additional character +80%',commercial:'Commercial use x2',priceNote:'Price approx. 150 THB',added:'Added to cart',removed:'Removed',saved:'Saved',passwordWrong:'Wrong password',loginSuccess:'Login successful',logoutSuccess:'Logged out',emptyCart:'Your cart is empty',emptyCartSub:'Tap + on a product to add it',subtotal:'Subtotal',total:'Grand Total',checkout:'Generate Slip',screenshotNote:'Please screenshot and send to admin',txnId:'Transaction ID',date:'Date',confirmDelete:'Confirm delete?',pending:'Pending',doing:'In Progress',done:'Done',month:'Month',totalQueue:'Total',completed:'Done',inProgress:'In Progress',waiting:'Waiting',editNote:'Edit Note',adminMode:'Admin Mode',askPrice:'Feel free to ask about other pricing!',name:'Name',detail:'Details',price:'Price',deadline:'Deadline',status:'Status',title:'Title',image:'Image',save:'Save',cancel:'Cancel',category:'Category',uploadImage:'Upload Image',noProducts:'No products yet',noGallery:'No works yet'}
+};
+function t(k){return i18n[currentLang]?.[k]||k}
+
+// ═════════════════════════════════════════
+//  LANDING & INIT
+// ═════════════════════════════════════════
+function initSparkles(){
+  const c=document.getElementById('landingSparkles');
+  for(let i=0;i<15;i++){
+    const s=document.createElement('div');
+    s.className='sparkle';
+    s.style.left=Math.random()*100+'%';
+    s.style.top=Math.random()*100+'%';
+    s.style.animationDelay=Math.random()*4+'s';
+    s.style.width=s.style.height=(3+Math.random()*6)+'px';
+    c.appendChild(s);
+  }
+}
+
+function enterSite(){
+  document.getElementById('landing').classList.add('hidden');
+  document.getElementById('app').style.opacity='1';
+}
+
+// NAV
+const navItems=[
+  {id:'home',icon:'<svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>',label:'Home'},
+  {id:'gallery',icon:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2a10 10 0 100 20 10 10 0 000-20z"/></svg>',label:'Portfolio'},
+  {id:'pricing',icon:'<svg viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>',label:'Pricing'},
+  {id:'about',icon:'<svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',label:'About'},
+  {id:'contact',icon:'<svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>',label:'Contact'},
+];
+
+function buildSidebarNav(){
+  const nav=document.getElementById('sidebarNav');
+  nav.innerHTML=navItems.map(n=>`
+    <div class="sb-nav-item ${n.id==='home'?'active':''}" onclick="navigateTo('${n.id}')" data-page="${n.id}">
+      ${n.icon}<span>${n.label}</span>
+      ${n.id==='cart'?'<span class="sb-badge" id="cartBadgeDesktop" style="display:none">0</span>':''}
+    </div>`).join('');
+}
+
+function buildBottomNav(){
+  const nav=document.getElementById('bottomNav');
+  const icons={home:'\u{1F3E0}',gallery:'\u{1F3A8}',pricing:'\u{1F4B0}',about:'\u{1F464}',contact:'\u2709\uFE0F'};
+  nav.innerHTML=navItems.map(n=>`
+    <div class="nav-item ${n.id==='home'?'active':''}" onclick="navigateTo('${n.id}')" data-page="${n.id}">
+      <span class="nav-icon">${icons[n.id]}</span>
+      <span class="nav-label">${n.label}</span>
+      ${n.id==='cart'?'<span class="nav-badge-m" id="cartBadgeMobile" style="display:none">0</span>':''}
+    </div>`).join('');
+}
+
+function navigateTo(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const page=document.getElementById('page-'+id);
+  if(page){page.classList.add('active');page.style.animation='none';page.offsetHeight;page.style.animation='fadeUp 0.5s ease both'}
+  document.querySelectorAll('.sb-nav-item').forEach(n=>n.classList.toggle('active',n.dataset.page===id));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.toggle('active',n.dataset.page===id));
+  document.querySelector('.main')?.scrollTo(0,0);
+  if(id==='cart')renderCart();if(id==='queue')renderQueue();if(id==='gallery')renderGallery();
+}
+
+// ═════════════════════════════════════════
+//  RENDER
+// ═════════════════════════════════════════
+function renderAll(){
+  renderStatus();renderProducts();renderCommissions();renderGallery();renderDetails();renderPricingCards();renderContacts();buildBottomNav();updateCounts();updateI18n();renderHeroGallery();
+  document.getElementById('shopNote').textContent=shopNote;
+  document.getElementById('shopBioText').textContent=t('shopBio');
+}
+
+function renderPricingCards(){
+  const el=document.getElementById('pricingCards');
+  if(!el)return;
+  el.innerHTML=pricingData.map(c=>`
+    <div class="card" style="overflow:hidden;display:flex;flex-direction:column">
+      <div style="overflow:hidden;border-radius:var(--radius) var(--radius) 0 0">
+        <img src="${c.img}" alt="${c.name}" style="width:100%;aspect-ratio:1;object-fit:cover;transition:transform 0.5s ease" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+      </div>
+      <div style="padding:20px;display:flex;flex-direction:column;flex:1">
+        <div style="font-size:1.05rem;font-weight:700;margin-bottom:8px">${c.name}</div>
+        <div style="font-size:0.88rem;font-weight:600;color:var(--accent);margin-bottom:10px">${c.prices}</div>
+        <div style="font-size:0.72rem;color:var(--text-muted);margin-bottom:14px;line-height:1.7;flex:1">
+          ${c.extras.map(e=>'<div>· '+e+'</div>').join('')}
+        </div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <button class="btn-pink btn-sm" onclick="goToPortfolioFilter('${c.filter}')">ดูตัวอย่าง &#10132;</button>
+          <button class="btn-outline btn-sm" onclick="window.open('https://discord.gg/5fARWKzFR3','_blank')">สั่งงาน &#9825;</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function goToPortfolioFilter(catId){
+  currentGalleryFilter=catId;
+  navigateTo('gallery');
+  setTimeout(()=>renderGallery(),100);
+}
+
+function updateCounts(){
+  document.getElementById('queueCount').textContent=queue.filter(q=>q.status!=='done').length;
+  document.getElementById('productCount').textContent=products.length;
+  document.getElementById('galleryCount').textContent=gallery.length;
+}
+
+function renderHeroGallery(){
+  const g=document.getElementById('heroGallery');
+  const heroImages=[
+    'couple/IMG_2868.png',
+    '\u0e21\u0e38\u0e21\u0e37/IMG_2209.gif',
+    '\u0e14\u0e38\u0e49\u0e01\u0e14\u0e34\u0e49\u0e01/Dream21-ezgif.com-overlay.gif',
+    'single/IMG_3282.png'
+  ];
+  g.innerHTML=heroImages.map(src=>`<div class="hero-gallery-item"><img src="${src}" alt=""></div>`).join('');
+}
+
+function renderStatus(){
+  const b=document.getElementById('statusBadge');
+  b.className='status-inline '+(shopOpen?'open':'closed');
+  document.getElementById('statusText').textContent=shopOpen?t('statusOpen'):t('statusClosed');
+}
+
+function renderProducts(){
+  const g=document.getElementById('productsGrid');
+  if(!products.length){g.innerHTML=`<div class="text-center text-muted" style="grid-column:1/-1;padding:40px">${t('noProducts')}</div>`;return}
+  g.innerHTML=products.map((p,i)=>`
+    <div class="card product-card anim-up d${(i%5)+1}">
+      <div class="product-img-wrap">
+        ${p.img?`<img class="product-img" src="${p.img}" alt="${p.name}">`:`<div class="product-placeholder"><span>&#10047;</span><span>${p.name}</span></div>`}
+      </div>
+      <div class="product-info">
+        <div class="product-name">${p.name}</div>
+        <div class="product-price">\u0e3f${p.price.toLocaleString()}</div>
+      </div>
+      <button class="product-add" onclick="event.stopPropagation();addToCart(${p.id})">+</button>
+      ${isAdmin?`<button class="btn-danger" style="position:absolute;top:8px;right:8px;z-index:2" onclick="event.stopPropagation();deleteProduct(${p.id})">&#x2715;</button>`:''}
+    </div>`).join('');
+}
+
+function renderCommissions(){
+  const l=document.getElementById('commissionList');
+  l.innerHTML=commissions.map((c,i)=>`
+    <div class="card commission-card anim-up d${(i%5)+1}">
+      ${c.img?`<img class="commission-thumb" src="${c.img}" alt="${c.type}">`:`<div class="commission-thumb-placeholder">&#10047;</div>`}
+      <div class="commission-info">
+        <div class="commission-type">${c.type}</div>
+        <div class="commission-desc">${c.desc}</div>
+        <div class="commission-price">\u0e3f${c.price.toLocaleString()}</div>
+        <button class="commission-order-btn" onclick="addToCart(0)">Order &#9825;</button>
+      </div>
+      ${isAdmin?`<button class="btn-danger" onclick="deleteCommission(${c.id})">&#x2715;</button>`:''}
+    </div>`).join('');
+}
+
+let currentGalleryFilter='all';
+function renderGallery(){
+  const f=document.getElementById('galleryFilter');
+  f.innerHTML=galleryCats.map(c=>`<button class="tab ${c.id===currentGalleryFilter?'active':''}" onclick="filterGallery('${c.id}',this)">&#10047; ${currentLang==='th'?c.label:c.labelEn}</button>`).join('');
+  const g=document.getElementById('galleryGrid');
+  const filtered=currentGalleryFilter==='all'?gallery:gallery.filter(x=>x.category===currentGalleryFilter);
+  if(!filtered.length){g.innerHTML=`<div class="text-center text-muted" style="padding:40px">${t('noGallery')}</div>`;return}
+  g.innerHTML=filtered.map((x,i)=>`
+    <div class="gallery-item card" onclick="${x.img?`openLightbox('${x.img}')`:''}" style="animation-delay:${i*0.05}s">
+      ${x.img?`<img src="${x.img}" alt="${x.title}">`:`<div class="gallery-placeholder">&#10047;</div>`}
+      <div class="gallery-item-overlay"><div style="font-weight:500">${x.title}</div></div>
+      ${isAdmin?`<button class="btn-danger" style="position:absolute;top:6px;right:6px;z-index:2" onclick="event.stopPropagation();deleteGalleryItem(${x.id})">&#x2715;</button>`:''}
+    </div>`).join('');
+}
+function filterGallery(id,btn){currentGalleryFilter=id;document.querySelectorAll('#galleryFilter .tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderGallery()}
+
+function renderDetails(){
+  document.getElementById('doList').innerHTML=doItems.map(x=>`<p>&#10024; ${currentLang==='th'?x.th:x.en}</p>`).join('');
+  document.getElementById('dontList').innerHTML=dontItems.map(x=>`<p style="color:var(--danger)">&#10008; ${currentLang==='th'?x.th:x.en}</p>`).join('');
+  document.getElementById('tosList').innerHTML=tosItems.map((x,i)=>`<p>${i+1}. ${currentLang==='th'?x.th:x.en}</p>`).join('');
+}
+
+function renderQueue(){
+  const l=document.getElementById('queueList');
+  if(!l)return;
+  if(!queue.length){l.innerHTML='<div class="text-center text-muted" style="padding:40px">No queue</div>';return}
+  const statusIcon={pending:'\u23F3',doing:'\u{1F525}',done:'\u2705'};
+  l.innerHTML=queue.map((q,i)=>`
+    <div class="card queue-card anim-up d${(i%5)+1}">
+      <div class="queue-num">${i+1}</div>
+      <div class="queue-info"><div class="queue-name">${q.name}</div><div class="queue-detail">${q.detail} | ${q.deadline||'-'}</div></div>
+      <span class="queue-status ${q.status}">${statusIcon[q.status]} ${t(q.status)}</span>
+      ${isAdmin?`<select onchange="updateQueueStatus(${q.id},this.value)" style="padding:3px 6px;border-radius:6px;background:var(--bg-input);border:1px solid var(--border);color:var(--text);font-family:inherit;font-size:0.65rem">
+        <option value="pending" ${q.status==='pending'?'selected':''}>Pending</option>
+        <option value="doing" ${q.status==='doing'?'selected':''}>Doing</option>
+        <option value="done" ${q.status==='done'?'selected':''}>Done</option>
+      </select><button class="btn-danger" onclick="deleteQueueItem(${q.id})">&#x2715;</button>`:''}
+      <div class="queue-progress ${q.status}"></div>
+    </div>`).join('');
+  renderQueueSummary();
+}
+
+function renderQueueSummary(){
+  const s=document.getElementById('monthSummary');if(!s)return;
+  const months={};
+  queue.forEach(q=>{const m=q.month||q.deadline?.substring(0,7)||'?';if(!months[m])months[m]={total:0,done:0,doing:0,pending:0};months[m].total++;months[m][q.status]++});
+  const sorted=Object.keys(months).sort().reverse();
+  s.innerHTML=`<table class="month-table card"><thead><tr><th>${t('month')}</th><th>${t('totalQueue')}</th><th>\u2705 ${t('completed')}</th><th>\u{1F525} ${t('inProgress')}</th><th>\u23F3 ${t('waiting')}</th></tr></thead><tbody>${sorted.map(m=>`<tr><td style="font-weight:500">${m}</td><td>${months[m].total}</td><td style="color:var(--success)">${months[m].done}</td><td style="color:#4080C0">${months[m].doing}</td><td style="color:#B89840">${months[m].pending}</td></tr>`).join('')}</tbody></table>`;
+}
+
+function switchQueueTab(tab,btn){
+  document.querySelectorAll('#page-queue .tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+  document.getElementById('queueTabList').style.display=tab==='list'?'block':'none';
+  document.getElementById('queueTabSummary').style.display=tab==='summary'?'block':'none';
+}
+
+// CART
+function addToCart(pid){const p=products.find(x=>x.id===pid);if(!p)return;const e=cart.find(x=>x.id===pid);if(e)e.qty++;else cart.push({...p,qty:1});saveCart();updateCartBadge();showToast('\u{1F6D2}',t('added')+': '+p.name)}
+function removeFromCart(pid){cart=cart.filter(x=>x.id!==pid);saveCart();updateCartBadge();renderCart();showToast('\u{1F5D1}',t('removed'))}
+function updateCartQty(pid,d){const item=cart.find(x=>x.id===pid);if(!item)return;item.qty+=d;if(item.qty<=0)cart=cart.filter(x=>x.id!==pid);saveCart();updateCartBadge();renderCart()}
+function saveCart(){localStorage.setItem('cart',JSON.stringify(cart))}
+function updateCartBadge(){
+  const c=cart.reduce((s,x)=>s+x.qty,0);
+  ['cartBadgeMobile','cartBadgeDesktop'].forEach(id=>{const b=document.getElementById(id);if(b){b.textContent=c;b.style.display=c>0?'flex':'none'}});
+}
+function renderCart(){
+  const el=document.getElementById('cartContent');if(!el)return;
+  if(!cart.length){el.innerHTML=`<div class="cart-empty card"><div class="cart-empty-icon">&#10047;</div><div style="font-weight:500">${t('emptyCart')}</div><div class="text-muted mt-8" style="font-size:0.78rem">${t('emptyCartSub')}</div></div>`;return}
+  const sub=cart.reduce((s,c)=>s+c.price*c.qty,0);
+  el.innerHTML=`<div class="cart-items">${cart.map(c=>`<div class="card cart-item">${c.img?`<img class="cart-item-img" src="${c.img}">`:`<div class="cart-item-placeholder">&#10047;</div>`}<div class="cart-item-info"><div class="cart-item-name">${c.name}</div><div class="cart-item-price">\u0e3f${(c.price*c.qty).toLocaleString()}</div></div><div class="cart-qty"><button onclick="updateCartQty(${c.id},-1)">\u2212</button><span>${c.qty}</span><button onclick="updateCartQty(${c.id},1)">+</button></div><button class="cart-remove" onclick="removeFromCart(${c.id})">&#x2715;</button></div>`).join('')}</div><div class="card cart-summary"><div class="cart-total-row"><span>${t('subtotal')}</span><span>\u0e3f${sub.toLocaleString()}</span></div><div class="cart-total-row final"><span>${t('total')}</span><span class="cart-total-amount">\u0e3f${sub.toLocaleString()}</span></div><button class="btn-pink btn-block mt-16" onclick="generateSlip()">&#128221; ${t('checkout')}</button></div>`;
+}
+
+function generateSlip(){
+  if(!cart.length)return;
+  const txn='TXN-'+Math.random().toString(36).substring(2,10).toUpperCase();
+  const now=new Date();const ds=now.toLocaleDateString('th-TH',{year:'numeric',month:'long',day:'numeric'});const ts=now.toLocaleTimeString('th-TH',{hour:'2-digit',minute:'2-digit'});
+  const tot=cart.reduce((s,c)=>s+c.price*c.qty,0);
+  document.getElementById('slipContent').innerHTML=`<div class="slip-card"><div class="slip-logo">&#10047;</div><div class="slip-shop">${shopName}</div><div class="slip-txn">${t('txnId')}: ${txn}</div><div class="slip-txn">${t('date')}: ${ds} ${ts}</div><hr class="slip-divider">${cart.map(c=>`<div class="slip-row"><span>${c.name} x${c.qty}</span><span>\u0e3f${(c.price*c.qty).toLocaleString()}</span></div>`).join('')}<div class="slip-total"><span>${t('total')}</span><span class="amount">\u0e3f${tot.toLocaleString()}</span></div><hr class="slip-divider"><div class="slip-footer">${t('screenshotNote')}</div></div>`;
+  navigateTo('slip');spawnConfetti();cart=[];saveCart();updateCartBadge();
+}
+
+// THEME & MODE
+function applyMode(){document.documentElement.setAttribute('data-mode',currentMode);localStorage.setItem('mode',currentMode);const t=document.getElementById('darkModeToggle');if(t)t.classList.toggle('active',currentMode==='dark')}
+function toggleDarkMode(){currentMode=currentMode==='light'?'dark':'light';applyMode()}
+function renderThemeGrid(){const g=document.getElementById('themeGrid');g.innerHTML=themes.map(t=>`<div class="theme-swatch" style="background:${t.color}" onclick="setTheme('${t.id}')" title="${t.name}"></div>`).join('')}
+function setTheme(id){/* themes are visual only for now */renderThemeGrid()}
+
+// LANGUAGE
+function setLanguage(lang,btn){currentLang=lang;localStorage.setItem('lang',lang);document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderAll()}
+function updateI18n(){document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(i18n[currentLang]?.[k])el.textContent=i18n[currentLang][k]})}
+
+// ADMIN
+function showLoginModal(){openModal(`<div class="modal-title">&#x1F511; Admin Login</div><div class="form-group"><input type="password" class="form-input" id="adminPassInput" placeholder="\u0e23\u0e2b\u0e31\u0e2a\u0e1c\u0e48\u0e32\u0e19..." style="text-align:center"></div><button class="btn-pink btn-block" onclick="attemptAdminLogin()">Login</button>`);setTimeout(()=>{const inp=document.getElementById('adminPassInput');if(inp)inp.addEventListener('keydown',e=>{if(e.key==='Enter')attemptAdminLogin()})},100)}
+function attemptAdminLogin(){const i=document.getElementById('adminPassInput');if(i.value===ADMIN_PASSWORD){isAdmin=true;document.body.classList.add('is-admin');document.getElementById('adminLoginArea').style.display='none';document.getElementById('adminLogoutArea').style.display='block';i.value='';closeModalForce();showToast('\u26A1',t('loginSuccess'));renderAll()}else{showToast('\u274C',t('passwordWrong'));i.value=''}}
+function adminLogout(){isAdmin=false;document.body.classList.remove('is-admin');document.getElementById('adminLoginArea').style.display='block';document.getElementById('adminLogoutArea').style.display='none';showToast('\u{1F44B}',t('logoutSuccess'));renderAll()}
+
+function openStatusModal(){openModal(`<div class="modal-title">Toggle Status</div><div style="display:flex;gap:12px;justify-content:center"><button class="btn-pink" onclick="setShopStatus(true)">\u2705 ${t('statusOpen')}</button><button class="btn-outline" onclick="setShopStatus(false)">\u274C ${t('statusClosed')}</button></div>`)}
+function setShopStatus(o){shopOpen=o;localStorage.setItem('shopOpen',JSON.stringify(o));renderStatus();closeModalForce();showToast(o?'\u2705':'\u{1F534}',o?t('statusOpen'):t('statusClosed'))}
+
+// MODAL
+function openModal(h){document.getElementById('modalBody').innerHTML=h;document.getElementById('modalOverlay').classList.add('show');document.body.style.overflow='hidden'}
+function closeModal(e){if(e.target===document.getElementById('modalOverlay'))closeModalForce()}
+function closeModalForce(){document.getElementById('modalOverlay').classList.remove('show');document.body.style.overflow=''}
+
+// ADD/DELETE
+let tempImg='';
+function previewFile(inp,pid){const f=inp.files[0];if(!f)return;const r=new FileReader();r.onload=e=>{tempImg=e.target.result;const p=document.getElementById(pid);p.src=tempImg;p.style.display='block'};r.readAsDataURL(f)}
+
+function openAddProductModal(){openModal(`<div class="modal-title">+ ${t('forSale')}</div><div class="form-group"><label class="form-label">${t('name')}</label><input class="form-input" id="npName"></div><div class="form-group"><label class="form-label">${t('price')}</label><input type="number" class="form-input" id="npPrice" value="150"></div><div class="form-group"><label class="form-label">${t('image')}</label><div class="file-upload"><span style="font-size:1.5rem">&#10047;</span><span>${t('uploadImage')}</span><input type="file" accept="image/*" onchange="previewFile(this,'npPrev')"></div><img id="npPrev" class="file-preview" style="display:none"></div><button class="btn-pink btn-block" onclick="saveNewProduct()">${t('save')}</button>`)}
+function saveNewProduct(){const n=document.getElementById('npName').value.trim();const p=parseInt(document.getElementById('npPrice').value)||150;if(!n)return;products.push({id:Date.now(),name:n,price:p,img:tempImg||'',category:'other'});tempImg='';localStorage.setItem('products',JSON.stringify(products));closeModalForce();renderProducts();updateCounts();showToast('\u2705',t('saved'))}
+function deleteProduct(id){if(!confirm(t('confirmDelete')))return;products=products.filter(p=>p.id!==id);localStorage.setItem('products',JSON.stringify(products));renderProducts();updateCounts()}
+
+function openAddCommissionModal(){openModal(`<div class="modal-title">+ Commission Type</div><div class="form-group"><label class="form-label">${t('title')}</label><input class="form-input" id="ncType"></div><div class="form-group"><label class="form-label">${t('price')}</label><input type="number" class="form-input" id="ncPrice"></div><div class="form-group"><label class="form-label">${t('detail')}</label><textarea class="form-input" id="ncDesc"></textarea></div><div class="form-group"><label class="form-label">${t('image')}</label><div class="file-upload"><span style="font-size:1.5rem">&#10047;</span><input type="file" accept="image/*" onchange="previewFile(this,'ncPrev')"></div><img id="ncPrev" class="file-preview" style="display:none"></div><button class="btn-pink btn-block" onclick="saveNewComm()">${t('save')}</button>`)}
+function saveNewComm(){const ty=document.getElementById('ncType').value.trim();const pr=parseInt(document.getElementById('ncPrice').value)||0;const de=document.getElementById('ncDesc').value.trim();if(!ty)return;commissions.push({id:Date.now(),type:ty,price:pr,desc:de,img:tempImg||''});tempImg='';localStorage.setItem('commissions',JSON.stringify(commissions));closeModalForce();renderCommissions();showToast('\u2705',t('saved'))}
+function deleteCommission(id){if(!confirm(t('confirmDelete')))return;commissions=commissions.filter(c=>c.id!==id);localStorage.setItem('commissions',JSON.stringify(commissions));renderCommissions()}
+
+function openAddGalleryModal(){openModal(`<div class="modal-title">+ Gallery</div><div class="form-group"><label class="form-label">${t('title')}</label><input class="form-input" id="ngTitle"></div><div class="form-group"><label class="form-label">${t('category')}</label><select class="form-input" id="ngCat">${galleryCats.filter(c=>c.id!=='all').map(c=>`<option value="${c.id}">${c.label}</option>`).join('')}</select></div><div class="form-group"><label class="form-label">${t('image')}</label><div class="file-upload"><span style="font-size:1.5rem">&#10047;</span><input type="file" accept="image/*" onchange="previewFile(this,'ngPrev')"></div><img id="ngPrev" class="file-preview" style="display:none"></div><button class="btn-pink btn-block" onclick="saveNewGallery()">${t('save')}</button>`)}
+function saveNewGallery(){const ti=document.getElementById('ngTitle').value.trim();const ca=document.getElementById('ngCat').value;if(!ti)return;gallery.push({id:Date.now(),title:ti,category:ca,img:tempImg||''});tempImg='';localStorage.setItem('gallery',JSON.stringify(gallery));closeModalForce();renderGallery();updateCounts();showToast('\u2705',t('saved'))}
+function deleteGalleryItem(id){if(!confirm(t('confirmDelete')))return;gallery=gallery.filter(g=>g.id!==id);localStorage.setItem('gallery',JSON.stringify(gallery));renderGallery();updateCounts()}
+
+function openAddQueueModal(){openModal(`<div class="modal-title">+ Queue</div><div class="form-group"><label class="form-label">${t('name')}</label><input class="form-input" id="nqName"></div><div class="form-group"><label class="form-label">${t('detail')}</label><input class="form-input" id="nqDetail"></div><div class="form-group"><label class="form-label">${t('deadline')}</label><input type="date" class="form-input" id="nqDead"></div><div class="form-group"><label class="form-label">${t('status')}</label><select class="form-input" id="nqStatus"><option value="pending">Pending</option><option value="doing">Doing</option><option value="done">Done</option></select></div><button class="btn-pink btn-block" onclick="saveNewQueue()">${t('save')}</button>`)}
+function saveNewQueue(){const n=document.getElementById('nqName').value.trim();const d=document.getElementById('nqDetail').value.trim();const dl=document.getElementById('nqDead').value;const st=document.getElementById('nqStatus').value;if(!n)return;queue.push({id:Date.now(),name:n,detail:d,deadline:dl,status:st,month:dl?dl.substring(0,7):new Date().toISOString().substring(0,7)});localStorage.setItem('queue',JSON.stringify(queue));closeModalForce();renderQueue();updateCounts();showToast('\u2705',t('saved'))}
+function updateQueueStatus(id,s){const q=queue.find(x=>x.id===id);if(q){q.status=s;localStorage.setItem('queue',JSON.stringify(queue));renderQueue();updateCounts()}}
+function deleteQueueItem(id){if(!confirm(t('confirmDelete')))return;queue=queue.filter(q=>q.id!==id);localStorage.setItem('queue',JSON.stringify(queue));renderQueue();updateCounts()}
+
+function editShopNote(){openModal(`<div class="modal-title">&#128204; ${t('editNote')}</div><div class="form-group"><textarea class="form-input" id="editNoteIn" rows="4">${shopNote}</textarea></div><button class="btn-pink btn-block" onclick="saveShopNote()">${t('save')}</button>`)}
+function saveShopNote(){shopNote=document.getElementById('editNoteIn').value.trim();localStorage.setItem('shopNote',shopNote);document.getElementById('shopNote').textContent=shopNote;closeModalForce();showToast('\u2705',t('saved'))}
+
+function openAdminMenu(){openModal(`<div class="modal-title">\u26A1 Admin</div><div style="display:flex;flex-direction:column;gap:8px"><button class="btn-outline btn-block" onclick="closeModalForce();openAddProductModal()">+ Product</button><button class="btn-outline btn-block" onclick="closeModalForce();openAddCommissionModal()">+ Commission</button><button class="btn-outline btn-block" onclick="closeModalForce();openAddGalleryModal()">+ Gallery</button><button class="btn-outline btn-block" onclick="closeModalForce();openAddQueueModal()">+ Queue</button><button class="btn-outline btn-block" onclick="closeModalForce();openStatusModal()">Toggle Status</button><button class="btn-outline btn-block" onclick="closeModalForce();editShopNote()">Edit Note</button></div>`)}
+
+function openLightbox(src){document.getElementById('lightboxImg').src=src;document.getElementById('lightbox').classList.add('show');document.body.style.overflow='hidden'}
+function closeLightbox(){document.getElementById('lightbox').classList.remove('show');document.body.style.overflow=''}
+
+function showToast(icon,msg){const c=document.getElementById('toastContainer');const t=document.createElement('div');t.className='toast';t.innerHTML=`<span>${icon}</span><span>${msg}</span>`;c.appendChild(t);setTimeout(()=>{t.classList.add('removing');setTimeout(()=>t.remove(),300)},2500)}
+
+function spawnConfetti(){const c=document.getElementById('confettiContainer');const cols=['#E8A0A0','#C0A8E8','#6BC9A0','#E8C870','#A0D0E8','#E8C0A0'];for(let i=0;i<40;i++){const p=document.createElement('div');p.className='confetti-piece';p.style.left=Math.random()*100+'%';p.style.background=cols[Math.floor(Math.random()*cols.length)];p.style.animationDelay=Math.random()*2+'s';p.style.animationDuration=(2+Math.random()*2)+'s';p.style.borderRadius=Math.random()>0.5?'50%':'2px';p.style.width=(5+Math.random()*8)+'px';p.style.height=(5+Math.random()*8)+'px';c.appendChild(p)}setTimeout(()=>c.innerHTML='',5000)}
+
+const contactIcons={
+  Discord:'<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>',
+  Facebook:'<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>'
+};
+function renderContacts(){document.getElementById('contactLinks').innerHTML=contacts.map(c=>`<a class="card contact-link" href="${c.url}" target="_blank"><div class="contact-icon" style="background:${c.color}18;color:${c.color}">${contactIcons[c.name]||c.icon}</div><div><div class="contact-name">${c.name}</div><div class="contact-handle">${c.handle}</div></div></a>`).join('')}
+
+// TAB SWITCH
+document.addEventListener('DOMContentLoaded',()=>{
+  initSparkles();applyMode();buildSidebarNav();renderAll();updateCartBadge();
+  document.querySelectorAll('#homeTabNav .tab').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      document.querySelectorAll('#homeTabNav .tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+      document.querySelectorAll('.tab-content').forEach(tc=>tc.style.display='none');
+      const target=document.getElementById('tab-'+btn.dataset.tab);target.style.display='block';target.style.animation='fadeUp 0.4s ease both';
+    });
+  });
+  document.getElementById('adminPassInput').addEventListener('keydown',e=>{if(e.key==='Enter')attemptAdminLogin()});
+});
+</script>
+</body>
+</html>
